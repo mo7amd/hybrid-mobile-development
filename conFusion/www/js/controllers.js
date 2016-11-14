@@ -42,18 +42,18 @@ angular.module('conFusion.controllers', [])
     };
   })
 
-.controller('MenuController', ['$scope', 'menuFactory','baseURL',
-  function($scope, menuFactory,baseURL) {
-    $scope.baseURL     = baseURL;
-    $scope.tab         = 1;
-    $scope.filtText    = '';
+.controller('MenuController', ['$scope', 'menuFactory', 'baseURL',
+  function($scope, menuFactory, baseURL) {
+    $scope.baseURL = baseURL;
+    $scope.tab = 1;
+    $scope.filtText = '';
     $scope.showDetails = false;
-    $scope.showMenu    = false;
-    $scope.message     = "Loading ...";
+    $scope.showMenu = false;
+    $scope.message = "Loading ...";
 
     menuFactory.getDishes().query(
       function(response) {
-        $scope.dishes   = response;
+        $scope.dishes = response;
         $scope.showMenu = true;
       },
       function(response) {
@@ -61,37 +61,38 @@ angular.module('conFusion.controllers', [])
       });
 
 
-      $scope.select = function(setTab) {
-        $scope.tab = setTab;
+    $scope.select = function(setTab) {
+      $scope.tab = setTab;
 
-        if (setTab === 2) {
-          $scope.filtText = "appetizer";
-        } else if (setTab === 3) {
-          $scope.filtText = "mains";
-        } else if (setTab === 4) {
-          $scope.filtText = "dessert";
-        } else {
-          $scope.filtText = "";
-        }
-  };
+      if (setTab === 2) {
+        $scope.filtText = "appetizer";
+      } else if (setTab === 3) {
+        $scope.filtText = "mains";
+      } else if (setTab === 4) {
+        $scope.filtText = "dessert";
+      } else {
+        $scope.filtText = "";
+      }
+    };
 
-  $scope.isSelected = function(checkTab) {
-    return ($scope.tab === checkTab);
-  };
+    $scope.isSelected = function(checkTab) {
+      return ($scope.tab === checkTab);
+    };
 
-  $scope.toggleDetails = function() {
-    $scope.showDetails = !$scope.showDetails;
-  };
-  }])
+    $scope.toggleDetails = function() {
+      $scope.showDetails = !$scope.showDetails;
+    };
+  }
+])
 
 .controller('ContactController', ['$scope', function($scope) {
 
   $scope.feedback = {
     mychannel: "",
     firstName: "",
-    lastName : "",
-    agree    : false,
-    email    : ""
+    lastName: "",
+    agree: false,
+    email: ""
   };
 
   var channels = [{
@@ -122,9 +123,9 @@ angular.module('conFusion.controllers', [])
       $scope.feedback = {
         mychannel: "",
         firstName: "",
-        lastName : "",
-        agree    : false,
-        email    : ""
+        lastName: "",
+        agree: false,
+        email: ""
       };
       $scope.feedback.mychannel = "";
       $scope.feedbackForm.$setPristine();
@@ -133,36 +134,37 @@ angular.module('conFusion.controllers', [])
   };
 }])
 
-.controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory','baseURL',
-  function($scope, $stateParams, menuFactory,baseURL) {
-  $scope.baseURL = baseURL;
-  $scope.dish     = {};
-  $scope.showDish = false;
-  $scope.message  = "Loading ...";
+.controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory', 'baseURL',
+  function($scope, $stateParams, menuFactory, baseURL) {
+    $scope.baseURL = baseURL;
+    $scope.dish = {};
+    $scope.showDish = false;
+    $scope.message = "Loading ...";
 
-  $scope.dish = menuFactory.getDishes().get({
-      id: parseInt($stateParams.id, 10)
-    })
-    .$promise.then(
-      function(response) {
-        $scope.dish     = response;
-        $scope.showDish = true;
-      },
-      function(response) {
-        $scope.message = "Error: " + response.status + " " + response.statusText;
-      }
-    );
+    $scope.dish = menuFactory.getDishes().get({
+        id: parseInt($stateParams.id, 10)
+      })
+      .$promise.then(
+        function(response) {
+          $scope.dish = response;
+          $scope.showDish = true;
+        },
+        function(response) {
+          $scope.message = "Error: " + response.status + " " + response.statusText;
+        }
+      );
 
 
-}])
+  }
+])
 
 .controller('DishCommentController', ['$scope', 'menuFactory', function($scope, menuFactory) {
 
   $scope.mycomment = {
-    rating : 5,
+    rating: 5,
     comment: "",
-    author : "",
-    date   : ""
+    author: "",
+    date: ""
   };
 
   $scope.submitComment = function() {
@@ -178,45 +180,49 @@ angular.module('conFusion.controllers', [])
     $scope.commentForm.$setPristine();
 
     $scope.mycomment = {
-      rating : 5,
+      rating: 5,
       comment: "",
-      author : "",
-      date   : ""
+      author: "",
+      date: ""
     };
   };
 }])
 
 // implement the IndexController and About Controller here
 
-.controller('IndexController', ['$scope', 'menuFactory', 'corporateFactory','baseURL',
-  function($scope, menuFactory, corporateFactory,baseURL) {
+.controller('IndexController', ['$scope', 'menuFactory', 'corporateFactory', 'baseURL',
+  function($scope, menuFactory, corporateFactory, baseURL) {
     $scope.baseURL = baseURL;
-    $scope.leader  = corporateFactory.get({
+    $scope.leader = corporateFactory.get({
       id: 3
     });
     $scope.showDish = false;
-    $scope.message  = "Loading ...";
-    $scope.dish     = menuFactory.getDishes().get({
-      id: 0
-    })
-    .$promise.then(
+    $scope.message = "Loading ...";
+    $scope.dish = menuFactory.getDishes().get({
+        id: 0
+      })
+      .$promise.then(
         function(response) {
-        $scope.dish     = response;
-        $scope.showDish = true;
-      },
+          $scope.dish = response;
+          $scope.showDish = true;
+        },
         function(response) {
-        $scope.message = "Error: " + response.status + " " + response.statusText;
-      }
-    );
+          $scope.message = "Error: " + response.status + " " + response.statusText;
+        }
+      );
     $scope.promotion = menuFactory.getPromotion().get({
       id: 0
-  });
+    });
 
-}])
+  }
+])
 
-.controller('AboutController', ['$scope', 'corporateFactory', function($scope, corporateFactory) {
+.controller('AboutController', ['$scope', 'corporateFactory','baseURL',
+  function($scope, corporateFactory,baseURL) {
 
-  $scope.leaders = corporateFactory.query();
-  console.log($scope.leaders);
+    $scope.baseURL = baseURL;
+    $scope.leadership = corporateFactory.query();
 
-}]);
+
+  }
+]);
