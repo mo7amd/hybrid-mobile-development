@@ -1,29 +1,30 @@
 <ion-modal-view>
   <ion-header-bar>
-    <h1 class="title">Dish Comment</h1>
+    <h1 class="title">Submit Comment on Dish</h1>
     <div class="buttons">
-      <button class="button button-calm" ng-click="closeComment()">Close</button>
+      <button class="button button-clear" ng-click="closeComment()">Close</button>
     </div>
   </ion-header-bar>
   <ion-content>
-    <form ng-submit="doComment()">
+    <form id="commentForm" name="commentForm" ng-submit="doComment()">
       <div class="list">
         <label class="item item-input item-select">
           <span class="input-label">Rating</span>
-          <select ng-model="commentData.rating">
-            <option value="{{n}}" ng-repeat="n in [1,2,3,4,5,6]">{{n}}</option>
+          <select ng-model="mycomment.rating">
+            <option ng-repeat="n in [1,2,3,4,5]" value="{{n}}">{{n}}</option>
           </select>
         </label>
+
         <label class="item item-input">
-          <span class="input-label">Name</span>
-          <input type="text" ng-model="commentData.author">
+          <span class="input-label">Your Name</span>
+          <input type="text" ng-model="mycomment.author">
         </label>
         <label class="item item-input">
-          <span class="input-label">Comment</span>
-          <input type="text" ng-model="commentData.comment">
+          <span class="input-label">Your Comment</span>
+          <textarea ng-model="mycomment.comment"></textarea>
         </label>
         <label class="item">
-          <button class="button button-block button-positive" type="submit">Add Comment</button>
+          <button class="button button-block button-positive" type="submit">Submit</button>
         </label>
       </div>
     </form>
